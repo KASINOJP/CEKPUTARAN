@@ -97,6 +97,7 @@ body{
   max-width:100%;
   border-radius:12px;
   box-shadow:0 0 20px rgba(0,0,0,0.3);
+  transition:opacity 0.6s ease;
 }
 .btn{
   margin-top:20px;
@@ -124,10 +125,10 @@ body{
       <!-- Provider List -->
       <div class="provider-list">
         <div class="provider" data-provider="Pragmatic" 
-     data-photos='["../foto/pragmatic1.jpg","../foto/pragmatic2.jpg"]'>Pragmatic</div>
+             data-photos='["../foto/pragmatic1.jpg","../foto/pragmatic2.jpg"]'>Pragmatic</div>
 
         <div class="provider" data-provider="PG Soft" 
-     data-photos='["../foto/pgsoft1.jpg","../foto/pgsoft2.jpg"]'>PG Soft</div>
+             data-photos='["../foto/pgsoft1.jpg","../foto/pgsoft2.jpg"]'>PG Soft</div>
       </div>
 
       <!-- Button -->
@@ -145,6 +146,7 @@ body{
   const photoContainer = document.getElementById("photoContainer");
   let selectedProvider = null;
   let selectedPhotos = [];
+  let slideshowTimer = null;
 
   // pilih provider
   document.querySelectorAll(".provider").forEach(p=>{
@@ -171,9 +173,14 @@ body{
         clearInterval(timer);
         percentEl.textContent = target+"% ("+selectedProvider+")";
 
-        // ambil salah satu foto acak dari provider terpilih
-        let randomPhoto = selectedPhotos[Math.floor(Math.random()*selectedPhotos.length)];
-        photoContainer.innerHTML = `<img src="${randomPhoto}" alt="Foto ${selectedProvider}">`;
+        // slideshow foto
+        let idx = 0;
+        photoContainer.innerHTML = `<img src="${selectedPhotos[idx]}" alt="Foto ${selectedProvider}">`;
+        if(slideshowTimer) clearInterval(slideshowTimer);
+        slideshowTimer = setInterval(()=>{
+          idx = (idx+1) % selectedPhotos.length;
+          photoContainer.innerHTML = `<img src="${selectedPhotos[idx]}" alt="Foto ${selectedProvider}">`;
+        }, 2000); // ganti tiap 2 detik
       }
     },40);
   };
