@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Winrate Provider - KasinoJP</title>
+<style>
+:root{
+  --bg: #0a0f1c;
+  --panel: rgba(255,255,255,0.05);
+  --accent1: #7f5cff; 
+  --accent2: #00d4ff;
+  --text: #f9f9fb;
+  --muted: #9aa0b8;
+  --highlight: #ffd859;
+  --glass: rgba(255,255,255,0.08);
+}
+body{
+  margin:0;
+  font-family:"Poppins",system-ui,sans-serif;
+  background: url('auto.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--text);
+}
+.card{
+  width:min(520px,90vw);
+  padding:28px;
+  border-radius:20px;
+  background:var(--panel);
+  backdrop-filter: blur(16px);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 0 30px rgba(0,212,255,0.15);
+  text-align:center;
+}
+.title{
+  font-size:24px;
+  font-weight:900;
+  text-transform:uppercase;
+  background: linear-gradient(90deg,var(--accent2),var(--highlight));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:12px;
+}
+.subtitle{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+.center-area{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+}
+.percent-wrap{
+  width:100%;
+  max-width:320px;
+  background:var(--glass);
+  border-radius:16px;
+  padding:20px;
+  text-align:center;
+}
+.big-percent{
+  font-size:40px;
+  font-weight:900;
+  background: linear-gradient(90deg,var(--accent2),var(--highlight));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.provider-list{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:15px;
+}
+.provider{
+  padding:6px 12px;
+  border-radius:10px;
+  font-size:13px;
+  background:var(--glass);
+  cursor:pointer;
+  transition:.2s;
+}
+.provider:hover{
+  background:var(--accent2);
+  color:#000;
+  font-weight:600;
+}
+.photo-container{
+  margin-top:20px;
+}
+.photo-container img{
+  max-width:100%;
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+.btn{
+  margin-top:20px;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  border:none;
+  padding:12px 22px;
+  border-radius:12px;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="title">SERVER KASINOJP AUTO WIN</div>
+    <div class="subtitle">Pilih provider favorit kamu lalu cek <b>WINRATE</b>!</div>
+
+    <div class="center-area">
+      <div class="percent-wrap">
+        <div class="big-percent" id="percent">0%</div>
+        <div class="percent-label">Persentase peningkatan</div>
+      </div>
+
+      <!-- Provider List -->
+      <div class="provider-list">
+        <div class="provider" data-provider="Pragmatic" 
+             data-photos='["foto/pragmatic1.jpg","foto/pragmatic2.jpg"]'>Pragmatic</div>
+        <div class="provider" data-provider="PG Soft" 
+             data-photos='["foto/pgsoft1.jpg","foto/pgsoft2.jpg"]'>PG Soft</div>
+      </div>
+
+      <!-- Button -->
+      <button id="activateBtn" class="btn">CEK WINRATE PROVIDER</button>
+
+      <!-- Tempat Foto muncul -->
+      <div class="photo-container" id="photoContainer"></div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const percentEl = document.getElementById("percent");
+  const activateBtn = document.getElementById("activateBtn");
+  const photoContainer = document.getElementById("photoContainer");
+  let selectedProvider = null;
+  let selectedPhotos = [];
+
+  // pilih provider
+  document.querySelectorAll(".provider").forEach(p=>{
+    p.addEventListener("click", ()=>{
+      document.querySelectorAll(".provider").forEach(x=>x.style.background="var(--glass)");
+      p.style.background="var(--accent2)";
+      selectedProvider = p.dataset.provider;
+      selectedPhotos = JSON.parse(p.dataset.photos);
+    });
+  });
+
+  // cek winrate
+  activateBtn.onclick=()=>{
+    if(!selectedProvider){
+      alert("Pilih provider dulu!");
+      return;
+    }
+    let target = Math.floor(Math.random()*6)+93; // 93-98%
+    let count=0;
+    let timer = setInterval(()=>{
+      count++;
+      percentEl.textContent = count+"%";
+      if(count>=target){
+        clearInterval(timer);
+        percentEl.textContent = target+"% ("+selectedProvider+")";
+
+        // ambil salah satu foto acak dari provider terpilih
+        let randomPhoto = selectedPhotos[Math.floor(Math.random()*selectedPhotos.length)];
+        photoContainer.innerHTML = `<img src="${randomPhoto}" alt="Foto ${selectedProvider}">`;
+      }
+    },40);
+  };
+})();
+</script>
+</body>
+</html>
