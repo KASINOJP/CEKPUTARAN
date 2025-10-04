@@ -21,11 +21,10 @@ body{
   background: url('auto.jpg') no-repeat center center fixed;
   background-size: cover;
   min-height:100vh;
-  display: flex;
-  justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   color:var(--text);
-  padding: 20px 0;
-  box-sizing: border-box;
 }
 .card{
   width:min(420px,92vw);
@@ -36,7 +35,6 @@ body{
   border:1px solid rgba(255,255,255,0.08);
   box-shadow: 0 0 30px rgba(0,212,255,0.15);
   text-align:center;
-  margin-top: 20px;
 }
 .title{
   font-size:22px;
@@ -152,16 +150,11 @@ body{
   color:#000;
   font-weight:700;
   width: 100%;
-  text-align: center;
 }
 
 @media(max-width:480px){
-  body {
-    padding: 10px 0;
-  }
   .card{
     padding:20px;
-    width: 95%;
   }
   .title{
     font-size:20px;
@@ -191,14 +184,13 @@ body{
       <div class="provider-list">
         <div class="provider" data-provider="Pragmatic" 
           data-photos='[
-            "https://raw.githubusercontent.com/KASINOJP/CEKPUTARAN/main/pragmatic1.jpg",
-            "https://raw.githubusercontent.com/KASINOJP/CEKPUTARAN/main/pragmatic2.jpg",
+            "https://raw.githubusercontent.com/KASINOJP/repo/main/pragmatic1.jpg",
+            "https://raw.githubusercontent.com/KASINOJP/repo/main/pragmatic2.jpg"
           ]'>Pragmatic</div>
 
         <div class="provider" data-provider="PG Soft" 
           data-photos='[
-            "https://raw.githubusercontent.com/KASINOJP/CEKPUTARAN/main/pgsoft1.jpg",
-            "https://raw.githubusercontent.com/KASINOJP/CEKPUTARAN/main/pgsoft2.jpg",
+            "https://raw.githubusercontent.com/KASINOJP/repo/main/pgsoft1.jpg"
           ]'>PG Soft</div>
       </div>
 
